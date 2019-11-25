@@ -32,16 +32,26 @@ app = Flask(__name__)
 
 # get channel_secret and channel_access_token from your environment variable
 # change channel_secret and channel_access_token from your line developer
+channel_secret = os.getenv('LINE_CHANNEL_SECRET', None)
+channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
+if channel_secret is None:
+    print('Specify LINE_CHANNEL_SECRET as environment variable.')
+    sys.exit(1)
+if channel_access_token is None:
+    print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
+    sys.exit(1)
 
-
-line_bot_api = LineBotApi('VyR134PdPFBX575fxenkGLbZG6umdaQ5PpcCJ+QckIsxigyZKkr/F9dLdL8R2crRLnn4z9rvrVbMcnrZO7eOcVrknI2D9IK+sqtAr4tTmj10JXowiN6RoV/bhyTRFUGtVw11Dthm3N/iN6Aq9YdZBgdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('c540b2730236265512f037ad6ff5ccb6')
+line_bot_api = LineBotApi("VyR134PdPFBX575fxenkGLbZG6umdaQ5PpcCJ+QckIsxigyZKkr/F9dLdL8R2crRLnn4z9rvrVbMcnrZO7eOcVrknI2D9IK+sqtAr4tTmj10JXowiN6RoV/bhyTRFUGtVw11Dthm3N/iN6Aq9YdZBgdB04t89/1O/w1cDnyilFU=")
+handler = WebhookHandler("c540b2730236265512f037ad6ff5ccb6")
 
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
 # change this variable with your server API 
-api_url = "http://52.221.180.165"
+#api_url = "http://35.229.124.57"
+# api_url= "127.0.0.1"
+api_url= "http://52.221.180.165"
 api_port = ":3000"
+# api_port = ":5000"
 api_route = "/predict"
 
 @app.route("/test", methods=['GET'])
@@ -70,11 +80,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     question = event.message.text
-    if(question == 'Hai'):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='Halo'))
-    else:
-        answer = request_api(question)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
+    answer = request_api(question)
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
 
 def request_api(question):
     url = api_url + api_port + api_route
@@ -83,13 +90,13 @@ def request_api(question):
     response_data = ""
     while response_data == "":
         try:
-            print "ISSUING POST REQUEST..."
+            print ("ISSUING POST REQUEST...")
             session = requests.Session()
             req = session.post(url, data=payload, timeout=15)
             response_data = str(req.text)
         except:
-            print "Connection timeout..."
-            print "Retrying post request..."
+            print ("Connection timeout...")
+            print ("Retrying post request...")
             time.sleep(1)
             continue
     
