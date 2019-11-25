@@ -41,8 +41,8 @@ if channel_access_token is None:
     print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
     sys.exit(1)
 
-line_bot_api = LineBotApi("VyR134PdPFBX575fxenkGLbZG6umdaQ5PpcCJ+QckIsxigyZKkr/F9dLdL8R2crRLnn4z9rvrVbMcnrZO7eOcVrknI2D9IK+sqtAr4tTmj10JXowiN6RoV/bhyTRFUGtVw11Dthm3N/iN6Aq9YdZBgdB04t89/1O/w1cDnyilFU=")
-handler = WebhookHandler("c540b2730236265512f037ad6ff5ccb6")
+line_bot_api = LineBotApi('VyR134PdPFBX575fxenkGLbZG6umdaQ5PpcCJ+QckIsxigyZKkr/F9dLdL8R2crRLnn4z9rvrVbMcnrZO7eOcVrknI2D9IK+sqtAr4tTmj10JXowiN6RoV/bhyTRFUGtVw11Dthm3N/iN6Aq9YdZBgdB04t89/1O/w1cDnyilFU=')
+handler = WebhookHandler('c540b2730236265512f037ad6ff5ccb6')
 
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
