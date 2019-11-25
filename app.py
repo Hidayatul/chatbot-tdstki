@@ -40,7 +40,7 @@ handler = WebhookHandler('c540b2730236265512f037ad6ff5ccb6')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
 # change this variable with your server API 
-api_url = "https://52.221.180.165"
+api_url = "http://ec2-52-221-180-165.ap-southeast-1.compute.amazonaws.com/"
 api_port = ":3000"
 api_route = "/predict"
 
